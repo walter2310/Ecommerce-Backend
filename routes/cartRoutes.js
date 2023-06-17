@@ -3,13 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 const cartControllers = require('../controllers/cartControllers');
-const { check } = require('express-validator');
-const { checkId } = require('../helpers/db-validation');
 
-router.get('/:id', [
-    check('id').custom(checkId),
-],cartControllers.getCartData);
+router.get('/:userId', cartControllers.getCartData);
 
-router.get('/total-price/:id', cartControllers.payAmount);
+router.post('/', cartControllers.addToCart);
+
+router.get('/total-price/:userId', cartControllers.payAmount);
+
+router.delete('/:userId/:productId', cartControllers.removeProductFromCart);
 
 module.exports = router;

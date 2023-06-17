@@ -3,7 +3,6 @@ const router = express.Router();
 
 const { check } = require('express-validator');
 const validateFields = require('../middlewares/validateFields');
-const { verifyEmail, verifyId } = require('../helpers/db-validation');
 
 const { validateJWT } = require('../middlewares/validateJWT');
 const userControllers = require('../controllers/userControllers');
@@ -25,14 +24,11 @@ router.post('/login', [
 
 router.patch('/:id', [
     validateJWT,
-    check('id').custom(verifyId),
     validateFields
 ], userControllers.patchUser);
 
 router.delete('/:id', [
-    
     check('id').isMongoId(),
-    check('id').custom(verifyId)
 ], userControllers.deleteUser);
 
 module.exports = router;

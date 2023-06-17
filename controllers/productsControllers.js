@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const { client } = require('../DB/databasepg');
-const { ConnectionError, ValidationFieldError  } = require('../ERRORS/Errors');
+const { ConnectionError, ValidationFieldError  } = require('../ERR/Errors');
 
 const getAllProducts = async (req = request, res = response) => {
     try {

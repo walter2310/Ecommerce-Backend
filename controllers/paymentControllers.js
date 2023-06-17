@@ -5,10 +5,13 @@ const { client } = require('../DB/databasepg');
 
 const createOrder = async (req = request, res = response ) => {
     try {
-        //TODO
-        //Once we create the cart table, from that table its which we have to select the total price.
-        const product = await client.query('Select * from "products"');
         
+        const query = `SELECT SUM(products.price) FROM cart
+                 JOIN products ON cart.product_id = products.productid
+                 WHERE cart.user_id = 5`;
+       
+        const { rows } = await client.query(query);
+
         //Creating an order which is an object
         const order = {
             intent: 'CAPTURE',
@@ -16,7 +19,7 @@ const createOrder = async (req = request, res = response ) => {
                 {
                     amount: {
                         currency_code: "USD",
-                        value: product.rows[0].price
+                        value: rows[0].sum
                     },
                     
                     description: "This is the amount of your purchase."

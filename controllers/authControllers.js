@@ -1,5 +1,5 @@
 const { request, response } = require('express'); 
-const { ConnectionError } = require('../ERRORS/Errors');
+const { ConnectionError } = require('../ERR/Errors');
 const axios = require('axios');
 
 const githubAuthRedirect = async(req = request, res = response) => {

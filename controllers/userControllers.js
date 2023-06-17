@@ -1,6 +1,6 @@
 const { request, response } = require('express'); 
 const bcryptjs = require('bcryptjs');
-const { ValidationUserError, ConnectionError } = require('../ERRORS/Errors');
+const { ValidationUserError, ConnectionError } = require('../ERR/Errors');
 
 const generateToken = require('../helpers/generateToken');
 const { client } = require('../DB/databasepg');

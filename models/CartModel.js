@@ -36,13 +36,3 @@ class Cart {
     };
 }
 
-const cart = new Cart([]);
-
-cart.addItem({name: 'The last of us', price: 20})
-cart.addItem({name: 'God of war', price: 25})
-cart.addItem({name: 'Uncharted', price: 10})
-
-cart.showCart()
-
-cart.removeProduct('The last of us');
-cart.showCart()
