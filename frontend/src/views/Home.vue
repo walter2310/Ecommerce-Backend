@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navbar />
+        
         <div class="main-cont">
             <div class="rectangle">
             </div>

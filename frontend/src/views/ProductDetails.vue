@@ -1,6 +1,6 @@
 <template>
     <div class="product-details-cont">
-        <Navbar />
+
         <div class="main-cont-products">
             <div class="game-details" v-if="product">
                 <img :src="product.img" alt="" class="product-img-details">

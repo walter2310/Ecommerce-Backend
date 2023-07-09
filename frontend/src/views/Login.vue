@@ -54,9 +54,11 @@ export default {
          try {
             await this.axios.post('http://localhost:5050/users/login', payload)
                .then(response => {
-                  this.$router.push({ path: "/" })
+                  window.localStorage.setItem("token", response.data.token);
+                  this.$router.push({ path: "/" });
                   this.$toast.success(`Successful sign in`);
-               })
+               });
+               
          } catch (error) {
             this.$toast.warning(`Sign in failed`)
          }
