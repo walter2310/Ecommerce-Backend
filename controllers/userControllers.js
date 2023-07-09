@@ -21,17 +21,18 @@ const getAllUsers = async (req = request, res = response) => {
 
 const createUser = async (req = request, res = response) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, date } = req.body;
         const encyptedPassword = bcryptjs.hashSync(password, 10);
 
         await client.query(
-            `INSERT INTO "users"("name", "email", "password")
-            VALUES($1, $2, $3)`, [name, email, encyptedPassword]
+            `INSERT INTO "users"("name", "email", "password", "date")
+            VALUES($1, $2, $3, $4)`, [name, email, encyptedPassword, date]
         );
 
         res.status(201).json({ status: 'OK'});
         
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: 'FAILED',
             error: new ValidationUserError
@@ -61,6 +62,7 @@ const loginUser = async (req = request, res = response) => {
         res.status(200).json({ status: 'OK', data: user.rows, token: generateToken(user._id) });
 
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             status: 'FAILED',
             error: new ValidationUserError
