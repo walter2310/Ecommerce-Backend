@@ -11,16 +11,16 @@
                 </div>
 
                 <p class="age-restringed">Only for players older than: +{{ game.age }}</p>
-                <button class="remove-btn">Remove</button>
+                <button class="remove-btn" @click="removeGame(index)">Remove</button>
             </div>
         </div>
         <div class="right-column">
             <div class="summary-box">
                 <h1 class="game-summary-tile">Games Summary</h1>
-                <h3 class="sumamry-price">Price:  ${{totalPrice}}</h3>
+                <h3 class="sumamry-price">Price: ${{ totalPrice }}</h3>
                 <h3 class="sumamry-price">Taxes: 16%</h3>
-                <h3 class="sumamry-price">Subtotal:  ${{totalPriceWithTax}}</h3>
-                <button class="check-out-btn">Check Out</button>
+                <h3 class="sumamry-price">Subtotal: ${{ totalPriceWithTax }}</h3>
+                <button class="check-out-btn" @click="paySubtotal()">Check Out</button>
             </div>
         </div>
     </div>
@@ -34,9 +34,37 @@ export default {
         totalPrice() {
             return this.game.reduce((total, game) => total + game.price, 0);
         },
-        
+
         totalPriceWithTax() {
             return (this.totalPrice * 1.16).toFixed(2);
+        }
+    },
+
+    methods: {
+        async removeGame(index) {
+            const gameId = this.game[index].productid;
+            const userId = localStorage.getItem("userId");
+
+            try {
+                await this.axios.delete(`http://localhost:5050/cart/${userId}/${gameId}`);
+                this.game.splice(index, 1);
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async paySubtotal() {
+            const userId = localStorage.getItem("userId");
+
+            try {
+                const response = await this.axios.post(`http://localhost:5050/create-order/${userId}`);
+                const data = response.data;
+                window.location.href = data.links[1].href;
+
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 }
@@ -106,38 +134,38 @@ export default {
     border: none;
     outline: none;
     text-decoration: underline;
-    cursor:pointer
+    cursor: pointer
 }
 
 .summary-box {
     width: 280px;
     height: 278px;
-    background-color:#1E1E1E ;
-    color:white ;
-    border-radius :10px ;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 10px;
     margin-right: 120px;
     margin-top: -20px;
 }
 
 .game-summary-tile {
-   display:flex ;
-   align-content:center ;
-   justify-content:center;
-   
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
 }
 
-.sumamry-price{
-   margin-left :20px ;
+.sumamry-price {
+    margin-left: 20px;
 }
 
-.check-out-btn{
-   background-color:#662D91 ;
-   color:white ;
-   width :100% ;
-   margin-top :20px ;
-   height :60px ;
-   border-radius :10px ;
-   font-size :large ;
-   cursor:pointer
+.check-out-btn {
+    background-color: #662D91;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+    height: 60px;
+    border-radius: 10px;
+    font-size: large;
+    cursor: pointer
 }
 </style>

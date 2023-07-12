@@ -32,12 +32,12 @@ export default {
   },
 
   methods: {
-        logOut() {
-            window.localStorage.removeItem('token');
-            window.localStorage.removeItem('userId');
-            this.$router.push('/');
-        }
+    logOut() {
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('userId');
+      this.$router.push('/');
     }
+  }
 }
 </script>
   

@@ -5,12 +5,13 @@ const { client } = require('../DB/databasepg');
 
 const createOrder = async (req = request, res = response ) => {
     try {
-        
+        const { userId } = req.params;
+
         const query = `SELECT SUM(products.price) FROM cart
                  JOIN products ON cart.product_id = products.productid
-                 WHERE cart.user_id = 5`;
+                 WHERE cart.user_id = $1`;
        
-        const { rows } = await client.query(query);
+        const { rows } = await client.query(query, [userId]);
 
         //Creating an order which is an object
         const order = {
@@ -19,7 +20,7 @@ const createOrder = async (req = request, res = response ) => {
                 {
                     amount: {
                         currency_code: "USD",
-                        value: rows[0].sum
+                        value: (rows[0].sum * 1.16).toFixed(2)
                     },
                     
                     description: "This is the amount of your purchase."
@@ -30,7 +31,7 @@ const createOrder = async (req = request, res = response ) => {
                 brand_name: "thefourcodersecommerce.com",
                 landing_page: "LOGIN",
                 user_action: "PAY_NOW",
-                return_url: `${process.env.HOST}/payment/capture-order`,
+                return_url: `http://localhost:8080/`,
                 cancel_url: `${process.env.HOST}/payment/cancel-order`
             }
         }
@@ -48,7 +49,6 @@ const createOrder = async (req = request, res = response ) => {
                 password: process.env.PAYPAL_API_SECRET
             }
         })
-
 
         //Consuming the Paypal Api
         const orderResponse = await axios.post(`${process.env.PAYPAL_API_REST}/v2/checkout/orders`, order, {

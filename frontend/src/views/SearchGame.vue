@@ -1,8 +1,8 @@
 <template>
     <div class="searched-game-cont">
         <Navbar />
-        <div v-if="prod">
-            <h1 style="color: white">{{ prod.name }}</h1>
+        <div v-if="product">
+            <h1 style="color: white">{{ product.name }}</h1>
         </div>
         <div v-else>
             <h2 class="error-msg">No se encontró ningún producto con el nombre especificado</h2>
@@ -13,8 +13,9 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+
 export default {
     name: 'SearchGame',
     components: {
@@ -26,16 +27,17 @@ export default {
         const route = useRoute();
         const productName = route.query.name;
         
-        const prod = computed(() => {
-            const productInStore = store.state.products;
-            const foundProd = productInStore.find(prod => prod.name == productName);
-            console.log(foundProd)
-            return foundProd;
+        const product = computed(() => {
+            const productsStore = store.state.products;
+            const foundProduct = productsStore.find(p => p.name == productName);
+
+            return foundProduct
         });
 
         return {
-            prod
+            product
         }
+
     }
 }
 </script>

@@ -53,7 +53,7 @@ export default {
     .default-img {
       width: 340px;
       height: 240px;
-      border-radius: 10px;
+      border-radius: 8px;
     }
 
     .text-container {

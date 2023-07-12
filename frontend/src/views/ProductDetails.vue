@@ -16,9 +16,7 @@
                         <button @click="addTocart()" class="add-to-cart"><a class="fa fa-shopping-cart"></a></button>
                         <p class="add-btn">Add to cart</p>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -79,7 +77,6 @@ export default {
             try {
                 await this.axios.post(`http://localhost:5050/cart/${productId}/${userId}`)
                     .then(response => {
-                        this.$router.push({ path: "/cart" });
                         this.$toast.success(`Game added`);
                     })
 

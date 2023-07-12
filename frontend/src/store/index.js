@@ -4,12 +4,17 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    productByName: []
   },
 
   mutations: {
     setProducts(state, payload) {
       state.products = payload;
+    },
+
+    setProductByName(state, payload) {
+      state.productByName = payload;
     },
 
     setCart(state, payload) { 
@@ -21,7 +26,9 @@ export default createStore({
     async fetchData({ commit }) {
       try {
         const products = await axios.get('http://localhost:5050/products/');
-        commit('setProducts', products.data.data);
+        const sortedProducts = products.data.data.sort((a, b) => a.productid - b.productid);
+        
+        commit('setProducts', sortedProducts);
         
       } catch (error) {
         console.log(error)
@@ -42,8 +49,8 @@ export default createStore({
   },
 
   getters: {
-    getProductById: (state) => (id) => {
-      return state.products.data.find(product => product.productid === id);
+    getProductByName: (state) => (name) => {
+      return state.products.find(product => product.name === name);
     }
   }
 });

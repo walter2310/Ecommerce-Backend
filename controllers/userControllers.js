@@ -48,7 +48,6 @@ const createUser = async (req = request, res = response) => {
         res.status(201).json({ status: 'OK' });
 
     } catch (error) {
-        console.log(error)
         res.status(400).json({
             status: 'FAILED',
             error: new ValidationUserError

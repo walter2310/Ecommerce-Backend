@@ -3,6 +3,7 @@
         <Navbar />
         <div class="main-cont">
             <div class="rectangle">
+                <img src="../assets/New_Offers.png" alt="" class="offers">
             </div>
         </div>
 
@@ -14,13 +15,14 @@
             </div>
         </div>
 
-        <div class="products-list">
-            <h1 class="title">Offers</h1>
-            <div class="products-container">
-                <CardProducts v-for="product of products.slice(0, 4)" :key="product.productid" :product="product"
-                    @product-click="handleProductClick" />
+
+        <div class="footer">
+            <div class="explore-box">
+                <h3>Discover the variety of games we have for you</h3>
+                <button class="explore-btn"><a href="/explore">Explore</a></button>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -88,4 +90,33 @@ export default {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
+.offers {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.footer {
+    color: white;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.explore-box {
+    display: flex;   
+}
+
+.explore-btn {
+    
+    color: white;
+    background: none;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    cursor:pointer;
+    font-size: medium;
+}
+
 </style>
