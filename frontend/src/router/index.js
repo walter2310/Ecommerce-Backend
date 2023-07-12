@@ -5,6 +5,8 @@ import ProductDetails from '../views/ProductDetails.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import SearchGame from '../views/SearchGame.vue'
+import Cart from '../views/Cart.vue'
+
 
 const routes = [
   {
@@ -41,6 +43,12 @@ const routes = [
     path: '/search-game',
     name: 'search-game',
     component: SearchGame 
+  },
+
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart 
   },
 ]
 

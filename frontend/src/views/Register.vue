@@ -134,6 +134,7 @@ export default {
    border-color: #662D91;
    width: 150%;
    margin-top: 10px;
+   padding: 10px;
 }
 
 .register-label {

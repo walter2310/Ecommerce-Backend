@@ -1,6 +1,6 @@
 <template>
     <div class="product-details-cont">
-
+        <Navbar />
         <div class="main-cont-products">
             <div class="game-details" v-if="product">
                 <img :src="product.img" alt="" class="product-img-details">
@@ -13,7 +13,7 @@
 
                     <div class="buttons">
                         <button class="buy-btn">Buy</button>
-                        <button class="add-to-cart"><a class="fa fa-shopping-cart"></a></button>
+                        <button @click="addTocart()" class="add-to-cart"><a class="fa fa-shopping-cart"></a></button>
                         <p class="add-btn">Add to cart</p>
                     </div>
 
@@ -30,13 +30,13 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Navbar from '../components/Navbar.vue';
 
+let productId;
+
 export default {
     name: "ProductDetails",
     components: {
         Navbar
     },
-
-
     beforeRouteEnter(to, from, next) {
         // Accede al store
         const store = useStore();
@@ -53,16 +53,17 @@ export default {
             next();
         }
     },
-
+    
     setup() {
         const store = useStore();
         const route = useRoute();
-        const productId = route.params.id;
-
+        
+        productId = route.params.id;
+        
         const product = computed(() => {
             const productsStore = store.state.products;
             const foundProduct = productsStore.find(p => p.productid == productId);
-            console.log(foundProduct)
+
             return foundProduct
         });
 
@@ -71,6 +72,22 @@ export default {
         }
     },
     
+    methods: {
+        async addTocart() {
+            const userId = localStorage.getItem("userId");
+
+            try {
+                await this.axios.post(`http://localhost:5050/cart/${productId}/${userId}`)
+                    .then(response => {
+                        this.$router.push({ path: "/cart" });
+                        this.$toast.success(`Game added`);
+                    })
+
+            } catch (error) {
+                this.$toast.warning(`Please log in to add a product`);
+            }
+        }
+    }
 }
 </script>
 

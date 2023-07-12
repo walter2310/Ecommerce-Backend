@@ -9,6 +9,8 @@ const userControllers = require('../controllers/userControllers');
 
 router.get('/', userControllers.getAllUsers);
 
+router.get('/:id', validateJWT, userControllers.getUserById);
+
 router.post('/', [
     check('name', 'The name is required').notEmpty(),
     check('email', 'The email must be an email type').notEmpty().isEmail(),
@@ -29,6 +31,7 @@ router.patch('/:id', [
 ], userControllers.patchUser);
 
 router.delete('/:id', [
+    validateJWT,
     check('id').isMongoId(),
 ], userControllers.deleteUser);
 

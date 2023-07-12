@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    
     <router-view />
   </div>
 </template>
@@ -31,7 +31,8 @@ export default {
     
     onMounted(async () => {
       await store.dispatch('fetchData');
-    })
+    });
+
   }
 }
 

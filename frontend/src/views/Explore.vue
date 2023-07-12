@@ -18,7 +18,7 @@ import { computed, onMounted } from 'vue';
 import Navbar from '../components/Navbar.vue';
 
 export default {
-    name: "Home",
+    name: "Explore",
     components: {
         CardProducts,
         Navbar
@@ -26,10 +26,6 @@ export default {
 
     setup() {
         const store = useStore();
-        onMounted(() => {
-            store.dispatch('fetchData');
-        });
-
         const products = computed(() => store.state.products);
         return {
             products
@@ -37,10 +33,14 @@ export default {
     },
 
     methods: {
-        handleClick() {
-            this.$emit('product-click', this.product.productid);
-        }
-    }
+        handleProductClick(productid) {
+            this.$router.push({
+                name: 'product-details',
+                params: { id: productid }
+            })
+        },
+    },
+
 }
 </script>
 

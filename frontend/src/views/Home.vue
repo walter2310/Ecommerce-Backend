@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <Navbar />
         <div class="main-cont">
             <div class="rectangle">
             </div>
@@ -9,7 +9,7 @@
         <div class="products-list">
             <h1 class="title">Bestseller</h1>
             <div class="products-container">
-                <CardProducts v-for="product of products" :key="product.productid" :product="product"
+                <CardProducts v-for="product of products.slice(0, 4)" :key="product.productid" :product="product"
                     @product-click="handleProductClick" />
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="products-list">
             <h1 class="title">Offers</h1>
             <div class="products-container">
-                <CardProducts v-for="product of products" :key="product.productid" :product="product"
+                <CardProducts v-for="product of products.slice(0, 4)" :key="product.productid" :product="product"
                     @product-click="handleProductClick" />
             </div>
         </div>
@@ -42,18 +42,19 @@ export default {
         const products = computed(() => store.state.products);
 
         return {
-            products
+            products,
         }
     },
 
     methods: {
-       handleProductClick(productid) {
+        handleProductClick(productid) {
             this.$router.push({
                 name: 'product-details',
                 params: { id: productid }
             })
-        }
-    }
+        },
+    },
+
 }
 </script>
 
@@ -79,7 +80,7 @@ export default {
 
 .products-list {
     margin-top: 70px;
-    margin-left: 50px;
+    margin-left: 10px;
 }
 
 .products-container {

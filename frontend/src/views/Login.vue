@@ -13,20 +13,20 @@
 
             <div class="name-email-cont">
 
-               <label class="register-label">Email</label>
-               <input class="register-input" type="email" name="email" ref="email">
+               <label class="login-label">Email</label>
+               <input class="login-input" type="email" name="email" ref="email">
 
-               <label class="register-label">Password</label>
-               <input class="register-input" type="password" name="password" ref="password">
+               <label class="login-label">Password</label>
+               <input class="login-input" type="password" name="password" ref="password">
 
             </div>
             <div class="btn-cont">
-               <button @click="login()" class="register-btn">Login</button>
+               <button @click="login()" class="login-btn">Login</button>
             </div>
          </form>
 
 
-         <div class="register-footer">
+         <div class="login-footer">
             <p>Do not have an account? <a href="/register">Register</a></p>
          </div>
 
@@ -35,6 +35,8 @@
 </template>
   
 <script>
+import  useJwt  from 'jwt-decode'
+
 export default {
    name: 'Login',
    data() {
@@ -55,6 +57,9 @@ export default {
             await this.axios.post('http://localhost:5050/users/login', payload)
                .then(response => {
                   window.localStorage.setItem("token", response.data.token);
+                  const { id } = useJwt(response.data.token);
+                  window.localStorage.setItem("userId", id);
+
                   this.$router.push({ path: "/" });
                   this.$toast.success(`Successful sign in`);
                });
@@ -106,7 +111,7 @@ export default {
    margin-left: 30px;
 }
 
-.register-btn {
+.login-btn {
    border-radius: 30px;
    border: none;
    padding: 10px 20px;
@@ -117,10 +122,10 @@ export default {
 
 .btn-cont {
    margin-top: 30px;
-   margin-left: 150px;
+   margin-left: 165px;
 }
 
-.register-input {
+.login-input {
    background: white;
    border-radius: 20px;
    padding: 10px 5px;
@@ -128,13 +133,14 @@ export default {
    border-color: #662D91;
    width: 150%;
    margin-top: 10px;
+   padding: 10px;
 }
 
-.register-label {
+.login-label {
    margin-top: 10px;
 }
 
-.register-footer {
+.login-footer {
    display: flex;
    align-content: center;
    justify-content: center;

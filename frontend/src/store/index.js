@@ -3,23 +3,40 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    products: []
+    products: [],
+    cart: []
   },
 
   mutations: {
     setProducts(state, payload) {
       state.products = payload;
+    },
+
+    setCart(state, payload) { 
+      state.cart = payload;
     }
   },
 
   actions: {
     async fetchData({ commit }) {
       try {
-        const res = await axios.get('http://localhost:5050/products/');
-        commit('setProducts', res.data.data);
+        const products = await axios.get('http://localhost:5050/products/');
+        commit('setProducts', products.data.data);
         
       } catch (error) {
         console.log(error)
+      }
+    },
+
+    async getCartData({ commit }) {
+      try {
+        const userId = localStorage.getItem("userId");
+        const productsInCart =  await axios.get(`http://localhost:5050/cart/${userId}`); 
+
+        commit('setCart', productsInCart.data);
+
+      } catch (error) {
+        console.log(error);
       }
     }
   },
