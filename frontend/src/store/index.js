@@ -49,8 +49,6 @@ export default createStore({
   },
 
   getters: {
-    getProductByName: (state) => (name) => {
-      return state.products.find(product => product.name === name);
-    }
+     
   }
 });

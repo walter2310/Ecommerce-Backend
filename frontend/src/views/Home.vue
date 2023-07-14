@@ -3,7 +3,11 @@
         <Navbar />
         <div class="main-cont">
             <div class="rectangle">
-                <img src="../assets/New_Offers.png" alt="" class="offers">
+                <div class="carousel">
+                    <img src="../assets/New_Offers.png" alt="">
+                    <img src="../assets/detroit2.png" alt="">
+                    <img src="../assets/miles-pic.png" alt="">
+                </div>
             </div>
         </div>
 
@@ -32,6 +36,7 @@ import { computed } from 'vue';
 import CardProducts from '@/components/CardProducts.vue';
 import Navbar from '../components/Navbar.vue';
 
+
 export default {
     name: "Home",
     components: {
@@ -57,6 +62,17 @@ export default {
         },
     },
 
+    mounted() {
+        let carouselImages = document.querySelectorAll('.carousel img');
+        let currentImageIndex = 0;
+
+        setInterval(() => {
+            carouselImages[currentImageIndex].style.display = 'none';
+            currentImageIndex = (currentImageIndex + 1) % carouselImages.length;
+            carouselImages[currentImageIndex].style.display = 'block';
+        }, 3000);
+    }
+
 }
 </script>
 
@@ -67,7 +83,7 @@ export default {
 }
 
 .rectangle {
-    height: 350px;
+    height: 400px;
     width: 1080px;
     background: white;
     border-radius: 18px;
@@ -105,18 +121,39 @@ export default {
 }
 
 .explore-box {
-    display: flex;   
+    display: flex;
 }
 
 .explore-btn {
-    
+
     color: white;
     background: none;
     border: none;
     outline: none;
     text-decoration: underline;
-    cursor:pointer;
+    cursor: pointer;
     font-size: medium;
 }
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    border-radius: 16px ;
+}
+
+.carousel img:first-child {
+    display: block;
+}
+
 
 </style>

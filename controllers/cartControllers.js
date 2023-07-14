@@ -7,6 +7,7 @@ const addToCart = async(req = request, res = response) => {
     try {
         const { user_id } = req.params;     
         const { product_id } = req.params;     
+
         const query = 'INSERT INTO cart (user_id, product_id) VALUES ($1, $2)';
         await client.query(query, [user_id, product_id]);
 

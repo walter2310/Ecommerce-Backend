@@ -6,7 +6,7 @@ const productControllers = require('../controllers/productsControllers');
 
 router.get('/', productControllers.getAllProducts);
 
-router.get('/search-game', productControllers.getProductByName);
+router.post('/search-game', productControllers.getProductByName);
 
 router.post('/', [
     check('name', 'The name of the product can not be empty').notEmpty().isString(),

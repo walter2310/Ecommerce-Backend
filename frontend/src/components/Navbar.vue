@@ -11,9 +11,9 @@
         <li><a href="/cart" class="fa fa-shopping-cart"></a></li>
 
         <li>
-          <form action="/search-game">
-            <input type="text" placeholder="Search Store..." name="name" />
-            <button class="search-btn" type="submit">Search</button>
+          <form @submit.prevent>
+            <input type="text" placeholder="Search Store..." name="name" ref="gameName" />
+            <button class="search-btn" type="submit" @click="getGameByName()">Search</button>
           </form>
         </li>
         <li><a href="/explore">Explore</a></li>
@@ -31,12 +31,45 @@ export default {
     }
   },
 
+  data() {
+    return {
+      name: ''
+    }
+  },
+
   methods: {
     logOut() {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('userId');
       this.$router.push('/');
+    },
+
+    capitalizeFirstLetter(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    },
+
+    async getGameByName() {
+      let name = this.$refs.gameName.value;
+      if(!name) return
+
+      name = this.capitalizeFirstLetter(name);
+     
+      let payload = {
+        name: name
+      }
+
+      try {
+        await this.axios.post('http://localhost:5050/products/search-game', payload)
+          .then(response => {
+            this.$store.commit('setProductByName', response.data.data);
+            this.$router.push({ path: "/search-game" });
+          })
+
+      } catch (error) {
+        console.log(error);
+      }
     }
+
   }
 }
 </script>

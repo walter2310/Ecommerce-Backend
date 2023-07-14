@@ -8,7 +8,7 @@
         <div class="inside-cont">
           <div class="text">{{product.price}}.00$</div>
 
-          <button class='buy-button' type="submit">Buy</button>
+         
         </div>
       </div>
     </a>

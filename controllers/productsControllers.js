@@ -18,11 +18,8 @@ const getAllProducts = async (req = request, res = response) => {
 
 const getProductByName = async (req = request, res = response) => {
     try {
-        let { name } = req.query;
-        name = name.trim();
-        //Making the first letter UpperCase and the rest LowerCase
-        name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-
+        let { name } = req.body;
+      
         const query = 'SELECT * FROM products WHERE name LIKE $1';
 
         const productByName = await client.query(query, [`%${name}%`]);
@@ -39,11 +36,11 @@ const getProductByName = async (req = request, res = response) => {
 
 const createProduct = async (req = request, res = response) => {
     try {
-        const { name, price, description, img } = req.body;
+        const { name, price, description, img, developer, category, age } = req.body;
 
         await client.query(
-            `INSERT INTO "products"("name", "price", "description", "img")
-            VALUES($1, $2, $3, $4)`, [name, price, description, img]
+            `INSERT INTO "products"("name", "price", "description", "img", "developer","category","age")
+            VALUES($1, $2, $3, $4, $5, $6, $7)`, [name, price, description, img, developer, category, age]
         );
 
         res.status(201).json({ status: 'OK' });
@@ -60,10 +57,10 @@ const createProduct = async (req = request, res = response) => {
 const uplaodProduct = async (req = request, res = response) => {
     try {
         const { id } = req.params;
-        const { developer, category, age } = req.body;
-        const query = 'UPDATE products SET developer = $1, category = $2, age = $3 WHERE ProductId = $4';
+        const { developer, category, age, name } = req.body;
+        const query = 'UPDATE products SET developer = $1, category = $2, age = $3, name = $4 WHERE ProductId = $5';
 
-        await client.query(query, [developer, category, age, id])
+        await client.query(query, [developer, category, age, name,id])
 
         res.status(200).json({ status: 'OK' });
 
