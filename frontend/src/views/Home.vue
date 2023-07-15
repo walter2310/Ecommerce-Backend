@@ -4,8 +4,7 @@
         <div class="main-cont">
             <div class="rectangle">
                 <div class="carousel">
-                    <img src="../assets/New_Offers.png" alt="">
-                    <img src="../assets/detroit2.png" alt="">
+                    <img src="../assets/New_realeses1.png" alt="">
                     <img src="../assets/miles-pic.png" alt="">
                 </div>
             </div>
@@ -26,7 +25,8 @@
                 <button class="explore-btn"><a href="/explore">Explore</a></button>
             </div>
         </div>
-
+        
+        <Footer/>
     </div>
 </template>
 
@@ -35,13 +35,14 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import CardProducts from '@/components/CardProducts.vue';
 import Navbar from '../components/Navbar.vue';
-
+import Footer from '../components/Footer.vue';
 
 export default {
     name: "Home",
     components: {
         CardProducts,
-        Navbar
+        Navbar,
+        Footer
     },
 
     setup() {

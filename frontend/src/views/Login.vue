@@ -26,8 +26,8 @@
          </form>
 
 
-         <div class="login-footer">
-            <p>Do not have an account? <a href="/register">Register</a></p>
+         <div>
+            <p class="login-footer">Do not have an account? <a href="/register" class="login-footer">Register</a></p>
          </div>
 
       </div>

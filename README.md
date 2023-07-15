@@ -20,4 +20,4 @@ npm run serve
 
 ### 🎉 Special Thanks to:
 Marian Carrero, did all the UI/UX design.
-contact: carreromarian29@gmail.com
+Contact: carreromarian29@gmail.com

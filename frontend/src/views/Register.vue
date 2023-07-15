@@ -30,8 +30,8 @@
             </div>
          </form>
 
-         <div class="register-footer">
-            <p>Already have an account? <a href="/login">Login</a></p>
+         <div >
+            <p class="register-footer">Already have an account? <a href="/login" class="register-footer">Login</a></p>
          </div>
 
       </div>

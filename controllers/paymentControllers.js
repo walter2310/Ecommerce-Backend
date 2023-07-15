@@ -32,7 +32,7 @@ const createOrder = async (req = request, res = response ) => {
                 landing_page: "LOGIN",
                 user_action: "PAY_NOW",
                 return_url: `http://localhost:8080/`,
-                cancel_url: `${process.env.HOST}/payment/cancel-order`
+                cancel_url: `http://localhost:8080/`
             }
         }
         //Adding new params to my URLs

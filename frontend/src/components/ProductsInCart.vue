@@ -58,7 +58,7 @@ export default {
             const userId = localStorage.getItem("userId");
 
             try {
-                const response = await this.axios.post(`http://localhost:5050/create-order/${userId}`);
+                const response = await this.axios.post(`http://localhost:5050/payment/create-order/${userId}`);
                 const data = response.data;
                 window.location.href = data.links[1].href;
 

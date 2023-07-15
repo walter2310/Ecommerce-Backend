@@ -143,4 +143,6 @@ export default {
 .empty-msg {
     color: white;
 }
+
+
 </style>

@@ -41,7 +41,8 @@ export default {
     logOut() {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('userId');
-      this.$router.push('/');
+      this.$router.push('/login');
+      this.$toast.success(`Now you are not log in`);
     },
 
     capitalizeFirstLetter(str) {
