@@ -61,7 +61,9 @@ export default {
                 const response = await this.axios.post(`http://localhost:5050/payment/create-order/${userId}`);
                 const data = response.data;
                 window.location.href = data.links[1].href;
-
+                
+                await this.axios.delete(`http://localhost:5050/cart/${userId}`);
+                
             } catch (error) {
                 console.log(error)
             }

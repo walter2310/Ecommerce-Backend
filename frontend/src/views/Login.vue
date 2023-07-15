@@ -27,7 +27,8 @@
 
 
          <div>
-            <p class="login-footer">Do not have an account? <a href="/register" class="login-footer">Register</a></p>
+            <p class="login-footer">Do not have an account? <a href="/register" class="login-footer"> Register</a></p>
+            <a href="/" class="login-footerr">Back to home</a>
          </div>
 
       </div>
@@ -145,5 +146,9 @@ export default {
    align-content: center;
    justify-content: center;
    color: #662D91;
+}
+
+.login-footerr{
+   margin-left: 157px;
 }
 </style>

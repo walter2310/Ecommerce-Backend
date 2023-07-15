@@ -19,6 +19,10 @@ export default createStore({
 
     setCart(state, payload) { 
       state.cart = payload;
+    },
+    
+    emptyCart(state) {
+      state.cart = [];
     }
   },
 

@@ -12,4 +12,6 @@ router.get('/total-price/:userId', cartControllers.payAmount);
 
 router.delete('/:userId/:productId', cartControllers.removeProductFromCart);
 
+router.delete('/:userId', cartControllers.emptyCart);
+
 module.exports = router;

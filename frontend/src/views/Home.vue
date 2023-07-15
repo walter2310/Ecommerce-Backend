@@ -4,7 +4,7 @@
         <div class="main-cont">
             <div class="rectangle">
                 <div class="carousel">
-                    <img src="../assets/New_realeses1.png" alt="">
+                    <img src="../assets/New_realeses.png" alt="">
                     <img src="../assets/miles-pic.png" alt="">
                 </div>
             </div>

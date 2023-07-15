@@ -12,9 +12,8 @@
                     <h4>Category: {{ product.category }}</h4>
 
                     <div class="buttons">
-                        <button class="buy-btn">Buy</button>
-                        <button @click="addTocart()" class="add-to-cart"><a class="fa fa-shopping-cart"></a></button>
                         <p class="add-btn">Add to cart</p>
+                        <button @click="addTocart()" class="add-to-cart"><a class="fa fa-shopping-cart"></a></button>
                     </div>
                 </div>
             </div>
@@ -145,7 +144,7 @@ export default {
     align-items: center;
     width: 55px;
     font-size: 15px;
-    margin-top: 10px;
+    margin-top: 13px;
 }
 
 .add-to-cart:hover {
@@ -155,7 +154,7 @@ export default {
 
 .buttons {
     width: 350px;
-    margin-left: -44px;
+    margin-left: -64px;
     display: flex;
     justify-content: space-evenly;
 }

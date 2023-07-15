@@ -3,10 +3,10 @@ const { request, response } = require('express');
 const { client } = require('../DB/databasepg');
 const { ConnectionError } = require('../ERR/Errors');
 
-const addToCart = async(req = request, res = response) => {
+const addToCart = async (req = request, res = response) => {
     try {
-        const { user_id } = req.params;     
-        const { product_id } = req.params;     
+        const { user_id } = req.params;
+        const { product_id } = req.params;
 
         const query = 'INSERT INTO cart (user_id, product_id) VALUES ($1, $2)';
         await client.query(query, [user_id, product_id]);
@@ -23,31 +23,31 @@ const addToCart = async(req = request, res = response) => {
 
 const getCartData = async (req = request, res = response) => {
     try {
-        const { userId } = req.params; 
+        const { userId } = req.params;
         const query = `SELECT products.* FROM cart
                        JOIN products ON cart.product_id = products.productid
                        WHERE cart.user_id = $1`;
 
-        const { rows } = await client.query(query, [userId]);  
+        const { rows } = await client.query(query, [userId]);
         res.status(200).json({ data: rows });
-        
+
     } catch (error) {
         console.log(error)
         res.status(400).json({
             status: 'FAILED',
             error: new ConnectionError
-         });
+        });
     }
 };
 
 const payAmount = async (req = request, res = response) => {
     try {
         const { userId } = req.params;
-        
+
         const query = `SELECT SUM(products.price) FROM cart
                  JOIN products ON cart.product_id = products.productid
                  WHERE cart.user_id = $1`;
-       
+
         const { rows } = await client.query(query, [userId]);
 
         res.status(200).json({ status: 'OK', total: rows[0].sum })
@@ -69,6 +69,24 @@ const removeProductFromCart = async (req = request, res = response) => {
         await client.query(query, [userId, productId]);
 
         res.status(200).json({ msg: 'Product removed' });
+
+    } catch (error) {
+        res.status(400).json({
+            status: 'FAILED',
+            error: new ConnectionError
+        });
+    }
+}
+
+
+const emptyCart = async (req = request, res = response) => {
+    try {
+        const { userId } = req.params;
+        const query = 'Delete From cart WHERE user_id = $1';
+        await client.query(query, [userId]);
+
+        res.status(200).json({ msg: 'Cart removed' });
+
     } catch (error) {
         res.status(400).json({
             status: 'FAILED',
@@ -81,5 +99,6 @@ module.exports = {
     addToCart,
     getCartData,
     payAmount,
-    removeProductFromCart
+    removeProductFromCart,
+    emptyCart
 }
